@@ -15,10 +15,9 @@ function App() {
   const [dropped, setDropped] = useState(false)
 
   const handleChange = (file) => {
-    console.log(file)
     setFile(file)
     createListOfNames(file)
-    createListOfText(file)
+    // createListOfText(file)
   }
 
   const createListOfNames = (files) => {
@@ -32,43 +31,14 @@ function App() {
    setDropped(true)
   }
 
-  const createListOfText = async (files) => {
-    let textArray = []
-    await worker.load();
-    await worker.loadLanguage('eng')
-    await worker.initialize('eng')
-
-    for (let i = 0; i < files.length; i++) {
-      const {data} = await worker.recognize(files[i])
-      console.log(data.text)
-    }
-  }
-
- 
-const testServer = () => {
-  fetch('http://localhost:3000/api/some-endpoint', {
-    method: 'POST',
-    body: JSON.stringify({ key: 'value' }), // Replace with your desired request payload
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data); // Handle the response data
-    })
-    .catch(error => {
-      console.error(error); // Handle any errors
-    });
-}
 
 
   return (
     <>
-    <button onClick = {testServer}>Test Server</button>
     <FileUploader handleChange={handleChange} 
                   name="file"  
                   multiple={true}
+                  label="drag and drop or click here to upload"
     />
     {dropped && <TableMaker nameArray={nameArray} />}
     </>
