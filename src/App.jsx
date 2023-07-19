@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { FileUploader } from "react-drag-drop-files";
 import { createWorker } from 'tesseract.js';
 
@@ -10,14 +8,14 @@ import './App.css'
 
 
 function App() {
-  const [file, setFile] = useState(null)
+  const [droppedFiles, setDroppedFiles] = useState(null)
   const [nameArray, setNameArray] = useState([])
   const [dropped, setDropped] = useState(false)
 
   const handleChange = (file) => {
-    setFile(file)
+    setDroppedFiles(file)
     createListOfNames(file)
-    // createListOfText(file)
+    sendToBackend(file)
   }
 
   const createListOfNames = (files) => {
@@ -31,19 +29,34 @@ function App() {
    setDropped(true)
   }
 
+  const sendToBackend = (files) => {
 
+    const formData = new FormData()
+    let fileArr = Array.from(files)
+
+
+    for (let i = 0; i < fileArr.length; i++) {
+      formData.append('avatar', fileArr[i]);
+    }
+
+    fetch('http://localhost:5001/upload', {
+      method: 'POST', 
+      body: formData
+    })
+  }
 
   return (
     <>
     <FileUploader handleChange={handleChange} 
                   name="file"  
                   multiple={true}
+                  types={['png', 'jpeg', 'jpg']}
                   label="drag and drop or click here to upload"
+                  onTypeError= {(err) => alert('incorrect file type')}
     />
     {dropped && <TableMaker nameArray={nameArray} />}
     </>
   )
-
 }
 
 export default App

@@ -1,0 +1,4 @@
+currently, we are set up to upload files to the tesseract-backend. backend is stored as a separate file 
+
+
+Tutorial: https://www.youtube.com/watch?v=a1I3tcALTlc&t=1010s
