@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TableMaker = ({nameArray}) => {
+const TableMaker = ({dataArray}) => {
 
     const copyToClipboard = () => {
       const table = document.querySelector('table');
@@ -24,7 +24,7 @@ const TableMaker = ({nameArray}) => {
         <button onClick = {copyToClipboard}>Copy Table</button>
         <table>
           <tbody>
-            {nameArray.map((name, index) => (
+            {dataArray.map((name, index) => (
               <tr key={index}>
                 <td>{name}</td>
               </tr>
