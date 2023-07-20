@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TableMaker = ({dataArray}) => {
+const TableMaker = ({dataArray,  tableClass}) => {
 
     const copyToClipboard = () => {
-      const table = document.querySelector('table');
+      const table = document.getElementsByClassName(`${tableClass}`)[0]
       const tableData = Array.from(table.rows).map(row =>
         Array.from(row.cells).map(cell => cell.innerText)
       );
@@ -20,9 +20,9 @@ const TableMaker = ({dataArray}) => {
     }
 
   return (
-        <>
-        <button onClick = {copyToClipboard}>Copy Table</button>
-        <table>
+        <div className = {'container'}>
+        <button onClick = {copyToClipboard}>{`Copy ${tableClass === 'fileNames' ? 'File Names' : 'Model Names'}`}</button>
+        <table className = {tableClass}>
           <tbody>
             {dataArray.map((name, index) => (
               <tr key={index}>
@@ -31,7 +31,7 @@ const TableMaker = ({dataArray}) => {
             ))}
           </tbody>
         </table>
-        </>
+        </div>
   )
 }
 

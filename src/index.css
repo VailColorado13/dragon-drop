@@ -16,9 +16,20 @@
 
 table {
   table-layout: fixed;
+  min-width: 300px;
   border-collapse: collapse;
+  margin: 20px;
 }
-
+button {
+  margin: 10px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
 td {
   font-family: Arial, sans-serif;
   background-color: rgb(239, 239, 239);
